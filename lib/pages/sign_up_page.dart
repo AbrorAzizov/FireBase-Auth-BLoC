@@ -1,10 +1,15 @@
+import 'package:bloc_5/bloc/auth_bloc/app_bloc.dart';
+import 'package:bloc_5/bloc/auth_bloc/app_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final passwordController = TextEditingController();
+    final emailController = TextEditingController();
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -51,6 +56,7 @@ class SignupPage extends StatelessWidget {
                   const SizedBox(height: 20),
 
                   TextField(
+                    controller: emailController,
                     decoration: InputDecoration(
                         hintText: "Email",
                         border: OutlineInputBorder(
@@ -64,6 +70,7 @@ class SignupPage extends StatelessWidget {
                   const SizedBox(height: 20),
 
                   TextField(
+                    controller: passwordController,
                     decoration: InputDecoration(
                       hintText: "Password",
                       border: OutlineInputBorder(
@@ -97,6 +104,9 @@ class SignupPage extends StatelessWidget {
 
                   child: ElevatedButton(
                     onPressed: () {
+                      final password = passwordController.text;
+                      final email = emailController.text;
+                      context.read<AppBloc>().add(AppEventRegistration(email: email, password: password));
                     },
                     style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
@@ -163,6 +173,7 @@ class SignupPage extends StatelessWidget {
                   const Text("Already have an account?"),
                   TextButton(
                       onPressed: () {
+                        context.read<AppBloc>().add(AppEventGoToLogin());
                       },
                       child: const Text("Login", style: TextStyle(color: Colors.purple),)
                   )

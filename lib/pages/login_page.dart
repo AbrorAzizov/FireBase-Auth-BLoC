@@ -1,3 +1,5 @@
+import 'package:bloc_5/bloc/auth_bloc/app_bloc.dart';
+import 'package:bloc_5/bloc/auth_bloc/app_event.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -5,6 +7,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.all(24),
@@ -34,12 +37,15 @@ class LoginPage extends StatelessWidget {
   }
 
   _inputField(context) {
+    final passwordController = TextEditingController();
+    final emailController = TextEditingController();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         TextField(
+          controller: emailController,
           decoration: InputDecoration(
-              hintText: "Username",
+              hintText: "Email",
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18),
                   borderSide: BorderSide.none
@@ -50,6 +56,7 @@ class LoginPage extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         TextField(
+          controller: passwordController,
           decoration: InputDecoration(
             hintText: "Password",
             border: OutlineInputBorder(
@@ -64,6 +71,9 @@ class LoginPage extends StatelessWidget {
         const SizedBox(height: 10),
         ElevatedButton(
           onPressed: () {
+            final password = passwordController.text;
+            final email = emailController.text;
+            context.read<AppBloc>().add(AppEventLoggIn(email: email, password: password));
           },
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
@@ -95,6 +105,7 @@ class LoginPage extends StatelessWidget {
         const Text("Dont have an account? "),
         TextButton(
             onPressed: () {
+              context.read<AppBloc>().add(AppEventGoToRegistration());
             },
             child: const Text("Sign Up", style: TextStyle(color: Colors.purple),)
         )
