@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Future<bool> showDeleteAccountDialog(BuildContext context) {
+Future<bool> showLogoutAccountDialog(BuildContext context) {
   return showGeneralDialog<bool>(
     context: context,
     barrierDismissible: true,
