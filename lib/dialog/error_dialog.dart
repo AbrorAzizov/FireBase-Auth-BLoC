@@ -1,7 +1,7 @@
 import 'package:bloc_5/auth/auth_error.dart';
 import 'package:flutter/material.dart';
 
-Future<void> showDeleteAccountDialog({
+Future<void> showFirebaseErrorDialog({
   required BuildContext context,
   required AuthError authError
 }) {
